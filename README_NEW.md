@@ -2,6 +2,17 @@
 
 A modern full-stack todo application built with React, Node.js, TypeScript, and MySQL, featuring Docker containerization for easy deployment.
 
+## 🚀 Features
+
+- ✅ Create, read, update, and delete tasks
+- ✅ Display 5 most recent incomplete tasks
+- ✅ Mark tasks as completed
+- ✅ Responsive design with clean UI
+- ✅ RESTful API with proper error handling
+- ✅ TypeScript for type safety
+- ✅ Docker containerization
+- ✅ Database persistence with MySQL
+
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -252,24 +263,5 @@ This application is containerized and ready for deployment to any Docker-compati
 - **Local**: Docker Compose
 - **Cloud**: AWS ECS, Google Cloud Run, Azure Container Instances
 - **Kubernetes**: Includes Docker images ready for K8s deployment
-
-## 🆘 Troubleshooting
-
-### Common Issues
-
-1. **Port conflicts**: Ensure ports 3000, 5000, and 3307 are available
-2. **Docker issues**: Try `docker-compose down && docker-compose up --build`
-3. **Database connection**: Verify environment variables in `.env`
-4. **Permission errors**: Ensure Docker daemon is running
-
-### Support
-
-If you encounter any issues:
-
-1. Check the logs: `docker-compose logs [service-name]`
-2. Verify all prerequisites are installed
-3. Ensure ports are not in use by other applications
-
----
 
 **Built with ❤️ for the Full Stack Engineer Assessment**
