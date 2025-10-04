@@ -41,7 +41,9 @@ describe('App Component', () => {
     expect(screen.getByText('Todo Application')).toBeInTheDocument();
     expect(screen.getByText('Add a Task')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter task title')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Enter task description (optional)')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Enter task description (optional)')
+    ).toBeInTheDocument();
   });
 
   test('loads and displays tasks on mount', async () => {
@@ -64,7 +66,9 @@ describe('App Component', () => {
 
     await waitFor(() => {
       expect(screen.getByText('No tasks yet')).toBeInTheDocument();
-      expect(screen.getByText('Get started by creating your first task above.')).toBeInTheDocument();
+      expect(
+        screen.getByText('Get started by creating your first task above.')
+      ).toBeInTheDocument();
     });
   });
 
@@ -78,7 +82,9 @@ describe('App Component', () => {
       updatedAt: '2023-01-03T00:00:00Z',
     };
 
-    mockTaskService.getTasks.mockResolvedValueOnce([]).mockResolvedValueOnce([newTask]);
+    mockTaskService.getTasks
+      .mockResolvedValueOnce([])
+      .mockResolvedValueOnce([newTask]);
     mockTaskService.createTask.mockResolvedValue(newTask);
 
     render(<App />);
@@ -92,9 +98,12 @@ describe('App Component', () => {
     fireEvent.change(screen.getByPlaceholderText('Enter task title'), {
       target: { value: 'New Task' },
     });
-    fireEvent.change(screen.getByPlaceholderText('Enter task description (optional)'), {
-      target: { value: 'New Description' },
-    });
+    fireEvent.change(
+      screen.getByPlaceholderText('Enter task description (optional)'),
+      {
+        target: { value: 'New Description' },
+      }
+    );
 
     // Submit the form
     fireEvent.click(screen.getByText('Add'));

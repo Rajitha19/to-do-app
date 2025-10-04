@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { ValidationError } from '../types/task.types';
 
-export const validateTask = (req: Request, res: Response, next: NextFunction): void => {
+export const validateTask = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
   const { title, description } = req.body;
   const errors: ValidationError[] = [];
 
@@ -13,15 +17,24 @@ export const validateTask = (req: Request, res: Response, next: NextFunction): v
   } else if (title.trim().length === 0) {
     errors.push({ field: 'title', message: 'Title cannot be empty' });
   } else if (title.trim().length > 255) {
-    errors.push({ field: 'title', message: 'Title cannot exceed 255 characters' });
+    errors.push({
+      field: 'title',
+      message: 'Title cannot exceed 255 characters',
+    });
   }
 
   // Validate description (optional)
   if (description !== undefined) {
     if (typeof description !== 'string') {
-      errors.push({ field: 'description', message: 'Description must be a string' });
+      errors.push({
+        field: 'description',
+        message: 'Description must be a string',
+      });
     } else if (description.length > 1000) {
-      errors.push({ field: 'description', message: 'Description cannot exceed 1000 characters' });
+      errors.push({
+        field: 'description',
+        message: 'Description cannot exceed 1000 characters',
+      });
     }
   }
 
@@ -29,7 +42,7 @@ export const validateTask = (req: Request, res: Response, next: NextFunction): v
     res.status(400).json({
       success: false,
       message: 'Validation failed',
-      errors
+      errors,
     });
     return;
   }

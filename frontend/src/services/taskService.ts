@@ -14,7 +14,9 @@ const apiClient = axios.create({
 // Request interceptor for logging
 apiClient.interceptors.request.use(
   (config) => {
-    console.log(`Making ${config.method?.toUpperCase()} request to ${config.url}`);
+    console.log(
+      `Making ${config.method?.toUpperCase()} request to ${config.url}`
+    );
     return config;
   },
   (error) => {
@@ -30,14 +32,19 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     console.error('Response error:', error);
-    
+
     // Handle network errors
     if (!error.response) {
-      throw new Error('Network error. Please check your connection and try again.');
+      throw new Error(
+        'Network error. Please check your connection and try again.'
+      );
     }
-    
+
     // Handle API errors
-    const errorMessage = error.response.data?.message || error.response.data?.error || 'Something went wrong';
+    const errorMessage =
+      error.response.data?.message ||
+      error.response.data?.error ||
+      'Something went wrong';
     throw new Error(errorMessage);
   }
 );
@@ -48,7 +55,9 @@ export class TaskService {
    */
   static async getTasks(): Promise<Task[]> {
     try {
-      const response: AxiosResponse<ApiResponse<Task[]>> = await apiClient.get('/tasks');
+      const response: AxiosResponse<ApiResponse<Task[]>> = await apiClient.get(
+        '/tasks'
+      );
       return response.data.data;
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -61,7 +70,10 @@ export class TaskService {
    */
   static async createTask(taskData: CreateTaskDto): Promise<Task> {
     try {
-      const response: AxiosResponse<ApiResponse<Task>> = await apiClient.post('/tasks', taskData);
+      const response: AxiosResponse<ApiResponse<Task>> = await apiClient.post(
+        '/tasks',
+        taskData
+      );
       return response.data.data;
     } catch (error) {
       console.error('Error creating task:', error);
@@ -74,7 +86,9 @@ export class TaskService {
    */
   static async completeTask(taskId: number): Promise<Task> {
     try {
-      const response: AxiosResponse<ApiResponse<Task>> = await apiClient.put(`/tasks/${taskId}/complete`);
+      const response: AxiosResponse<ApiResponse<Task>> = await apiClient.put(
+        `/tasks/${taskId}/complete`
+      );
       return response.data.data;
     } catch (error) {
       console.error('Error completing task:', error);

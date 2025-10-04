@@ -15,12 +15,12 @@ export class TaskService {
     try {
       const tasks = await this.prisma.task.findMany({
         where: {
-          completed: false
+          completed: false,
         },
         orderBy: {
-          createdAt: 'desc'
+          createdAt: 'desc',
         },
-        take: 5
+        take: 5,
       });
 
       return tasks;
@@ -39,8 +39,8 @@ export class TaskService {
         data: {
           title: taskData.title.trim(),
           description: taskData.description?.trim() || null,
-          completed: false
-        }
+          completed: false,
+        },
       });
 
       return newTask;
@@ -57,7 +57,7 @@ export class TaskService {
     try {
       // Check if task exists
       const existingTask = await this.prisma.task.findUnique({
-        where: { id: taskId }
+        where: { id: taskId },
       });
 
       if (!existingTask) {
@@ -71,7 +71,7 @@ export class TaskService {
       // Update task to completed
       const updatedTask = await this.prisma.task.update({
         where: { id: taskId },
-        data: { completed: true }
+        data: { completed: true },
       });
 
       return updatedTask;
@@ -91,8 +91,8 @@ export class TaskService {
     try {
       return await this.prisma.task.findMany({
         orderBy: {
-          createdAt: 'desc'
-        }
+          createdAt: 'desc',
+        },
       });
     } catch (error) {
       console.error('Error fetching all tasks:', error);
@@ -106,7 +106,7 @@ export class TaskService {
   async deleteTask(taskId: number): Promise<void> {
     try {
       await this.prisma.task.delete({
-        where: { id: taskId }
+        where: { id: taskId },
       });
     } catch (error) {
       console.error('Error deleting task:', error);

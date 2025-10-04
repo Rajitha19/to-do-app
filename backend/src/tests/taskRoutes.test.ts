@@ -44,7 +44,9 @@ describe('Task Routes', () => {
     });
 
     it('should handle errors when fetching tasks', async () => {
-      mockTaskService.prototype.getRecentTasks.mockRejectedValue(new Error('Database error'));
+      mockTaskService.prototype.getRecentTasks.mockRejectedValue(
+        new Error('Database error')
+      );
 
       const response = await request(app).get('/api/tasks');
 
@@ -71,14 +73,14 @@ describe('Task Routes', () => {
 
       mockTaskService.prototype.createTask.mockResolvedValue(mockCreatedTask);
 
-      const response = await request(app)
-        .post('/api/tasks')
-        .send(newTaskData);
+      const response = await request(app).post('/api/tasks').send(newTaskData);
 
       expect(response.status).toBe(201);
       expect(response.body.success).toBe(true);
       expect(response.body.data).toEqual(mockCreatedTask);
-      expect(mockTaskService.prototype.createTask).toHaveBeenCalledWith(newTaskData);
+      expect(mockTaskService.prototype.createTask).toHaveBeenCalledWith(
+        newTaskData
+      );
     });
 
     it('should reject task creation with invalid data', async () => {
@@ -122,14 +124,18 @@ describe('Task Routes', () => {
         updatedAt: new Date(),
       };
 
-      mockTaskService.prototype.completeTask.mockResolvedValue(mockCompletedTask);
+      mockTaskService.prototype.completeTask.mockResolvedValue(
+        mockCompletedTask
+      );
 
       const response = await request(app).put(`/api/tasks/${taskId}/complete`);
 
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
       expect(response.body.data).toEqual(mockCompletedTask);
-      expect(mockTaskService.prototype.completeTask).toHaveBeenCalledWith(taskId);
+      expect(mockTaskService.prototype.completeTask).toHaveBeenCalledWith(
+        taskId
+      );
     });
 
     it('should handle invalid task ID', async () => {
@@ -142,7 +148,9 @@ describe('Task Routes', () => {
 
     it('should handle task not found', async () => {
       const taskId = 999;
-      mockTaskService.prototype.completeTask.mockRejectedValue(new Error('Task not found'));
+      mockTaskService.prototype.completeTask.mockRejectedValue(
+        new Error('Task not found')
+      );
 
       const response = await request(app).put(`/api/tasks/${taskId}/complete`);
 

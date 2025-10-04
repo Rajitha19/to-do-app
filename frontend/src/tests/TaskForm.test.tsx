@@ -6,7 +6,7 @@ import TaskForm from '../components/TaskForm';
 describe('TaskForm Component', () => {
   test('renders form fields', () => {
     const mockOnSubmit = jest.fn();
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     expect(screen.getByLabelText('Title')).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('TaskForm Component', () => {
 
   test('validates required title field', async () => {
     const mockOnSubmit = jest.fn();
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     // Try to submit without title
@@ -28,7 +28,7 @@ describe('TaskForm Component', () => {
 
   test('validates title length', async () => {
     const mockOnSubmit = jest.fn();
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     // Enter a title that's too long
@@ -39,20 +39,22 @@ describe('TaskForm Component', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
-    expect(screen.getByText('Title cannot exceed 255 characters')).toBeInTheDocument();
+    expect(
+      screen.getByText('Title cannot exceed 255 characters')
+    ).toBeInTheDocument();
     expect(mockOnSubmit).not.toHaveBeenCalled();
   });
 
   test('validates description length', async () => {
     const mockOnSubmit = jest.fn();
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     // Enter valid title and long description
     fireEvent.change(screen.getByLabelText('Title'), {
       target: { value: 'Valid Title' },
     });
-    
+
     const longDescription = 'a'.repeat(1001);
     fireEvent.change(screen.getByLabelText('Description'), {
       target: { value: longDescription },
@@ -60,13 +62,15 @@ describe('TaskForm Component', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
-    expect(screen.getByText('Description cannot exceed 1000 characters')).toBeInTheDocument();
+    expect(
+      screen.getByText('Description cannot exceed 1000 characters')
+    ).toBeInTheDocument();
     expect(mockOnSubmit).not.toHaveBeenCalled();
   });
 
   test('submits form with valid data', async () => {
     const mockOnSubmit = jest.fn().mockResolvedValue(undefined);
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     fireEvent.change(screen.getByLabelText('Title'), {
@@ -86,7 +90,7 @@ describe('TaskForm Component', () => {
 
   test('submits form without description', async () => {
     const mockOnSubmit = jest.fn().mockResolvedValue(undefined);
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     fireEvent.change(screen.getByLabelText('Title'), {
@@ -103,7 +107,7 @@ describe('TaskForm Component', () => {
 
   test('disables form when loading', () => {
     const mockOnSubmit = jest.fn();
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={true} />);
 
     expect(screen.getByLabelText('Title')).toBeDisabled();
@@ -113,19 +117,21 @@ describe('TaskForm Component', () => {
 
   test('clears form after successful submission', async () => {
     const mockOnSubmit = jest.fn().mockResolvedValue(undefined);
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     const titleInput = screen.getByLabelText('Title');
     const descriptionInput = screen.getByLabelText('Description');
 
     fireEvent.change(titleInput, { target: { value: 'Test Task' } });
-    fireEvent.change(descriptionInput, { target: { value: 'Test Description' } });
+    fireEvent.change(descriptionInput, {
+      target: { value: 'Test Description' },
+    });
 
     fireEvent.click(screen.getByRole('button', { name: 'Add' }));
 
     // Wait for form to be cleared
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(titleInput).toHaveValue('');
     expect(descriptionInput).toHaveValue('');
@@ -133,7 +139,7 @@ describe('TaskForm Component', () => {
 
   test('clears validation errors when user starts typing', () => {
     const mockOnSubmit = jest.fn();
-    
+
     render(<TaskForm onSubmit={mockOnSubmit} isLoading={false} />);
 
     // Submit empty form to trigger validation error

@@ -11,12 +11,14 @@ async function main() {
     data: [
       {
         title: 'Complete the todo application',
-        description: 'Build a full-stack todo app with React, Node.js, and MySQL',
+        description:
+          'Build a full-stack todo app with React, Node.js, and MySQL',
         completed: false,
       },
       {
         title: 'Write unit tests',
-        description: 'Add comprehensive test coverage for both frontend and backend',
+        description:
+          'Add comprehensive test coverage for both frontend and backend',
         completed: false,
       },
       {
@@ -26,7 +28,8 @@ async function main() {
       },
       {
         title: 'Design the user interface',
-        description: 'Create a clean and intuitive UI following the provided mockup',
+        description:
+          'Create a clean and intuitive UI following the provided mockup',
         completed: true,
       },
       {

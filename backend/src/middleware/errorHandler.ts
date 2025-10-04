@@ -33,6 +33,6 @@ export const errorHandler = (
 
   res.status(status).json({
     error: message,
-    ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+    ...(process.env.NODE_ENV === 'development' && { stack: error.stack }),
   });
 };

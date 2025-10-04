@@ -47,9 +47,13 @@ describe('TaskService', () => {
     });
 
     it('should handle database errors', async () => {
-      (mockPrisma.task.findMany as jest.Mock).mockRejectedValue(new Error('Database error'));
+      (mockPrisma.task.findMany as jest.Mock).mockRejectedValue(
+        new Error('Database error')
+      );
 
-      await expect(taskService.getRecentTasks()).rejects.toThrow('Failed to fetch tasks');
+      await expect(taskService.getRecentTasks()).rejects.toThrow(
+        'Failed to fetch tasks'
+      );
     });
   });
 
@@ -117,9 +121,13 @@ describe('TaskService', () => {
         description: 'New Description',
       };
 
-      (mockPrisma.task.create as jest.Mock).mockRejectedValue(new Error('Database error'));
+      (mockPrisma.task.create as jest.Mock).mockRejectedValue(
+        new Error('Database error')
+      );
 
-      await expect(taskService.createTask(taskData)).rejects.toThrow('Failed to create task');
+      await expect(taskService.createTask(taskData)).rejects.toThrow(
+        'Failed to create task'
+      );
     });
   });
 
@@ -157,7 +165,9 @@ describe('TaskService', () => {
 
       (mockPrisma.task.findUnique as jest.Mock).mockResolvedValue(null);
 
-      await expect(taskService.completeTask(taskId)).rejects.toThrow('Task not found');
+      await expect(taskService.completeTask(taskId)).rejects.toThrow(
+        'Task not found'
+      );
     });
 
     it('should throw error when task is already completed', async () => {
@@ -171,9 +181,13 @@ describe('TaskService', () => {
         updatedAt: new Date(),
       };
 
-      (mockPrisma.task.findUnique as jest.Mock).mockResolvedValue(completedTask);
+      (mockPrisma.task.findUnique as jest.Mock).mockResolvedValue(
+        completedTask
+      );
 
-      await expect(taskService.completeTask(taskId)).rejects.toThrow('Task is already completed');
+      await expect(taskService.completeTask(taskId)).rejects.toThrow(
+        'Task is already completed'
+      );
     });
 
     it('should handle database errors during update', async () => {
@@ -188,9 +202,13 @@ describe('TaskService', () => {
       };
 
       (mockPrisma.task.findUnique as jest.Mock).mockResolvedValue(existingTask);
-      (mockPrisma.task.update as jest.Mock).mockRejectedValue(new Error('Database error'));
+      (mockPrisma.task.update as jest.Mock).mockRejectedValue(
+        new Error('Database error')
+      );
 
-      await expect(taskService.completeTask(taskId)).rejects.toThrow('Database error');
+      await expect(taskService.completeTask(taskId)).rejects.toThrow(
+        'Database error'
+      );
     });
   });
 });
